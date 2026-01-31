@@ -4,10 +4,7 @@ import { auth } from "../lib/auth.js";
 
 const authRouter = express.Router();
 
-authRouter.all("*", toNodeHandler(auth));
-
-authRouter.get("/test", (req, res) => {
-  res.json({ message: "Auth router is working" });
-});
+// Better Auth handler - captura todas as rotas do Better Auth
+authRouter.all("/*", toNodeHandler(auth));
 
 export default authRouter;
