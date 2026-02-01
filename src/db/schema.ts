@@ -81,9 +81,50 @@ export const verification = pgTable(
   (table) => [index("verification_identifier_idx").on(table.identifier)],
 );
 
+export const addressTable = pgTable(
+  "address",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    userId: text("user_id")
+      .notNull()
+      .references(() => userTable.id, { onDelete: "cascade" }),
+
+    // Dados do endereço
+    street: text("street").notNull(),
+    number: text("number").notNull(),
+    complement: text("complement"),
+    neighborhood: text("neighborhood").notNull(),
+    city: text("city").notNull(),
+    state: text("state").notNull(),
+    zipCode: text("zip_code").notNull(),
+    country: text("country").default("Brasil").notNull(),
+
+    // Tipo de endereço
+    type: text("type", { enum: ["home", "work", "other"] })
+      .default("home")
+      .notNull(),
+
+    // Padrão (endereço principal)
+    isDefault: boolean("is_default").default(false).notNull(),
+
+    // Metadados
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+    updatedAt: timestamp("updated_at")
+      .defaultNow()
+      .$onUpdate(() => new Date())
+      .notNull(),
+  },
+  (table) => [
+    // Índices NO MESMO PADRÃO das outras tabelas
+    index("address_user_id_idx").on(table.userId),
+    index("address_default_idx").on(table.isDefault),
+  ],
+);
+
 export const userRelations = relations(userTable, ({ many }) => ({
   sessions: many(session),
   accounts: many(account),
+  addresses: many(addressTable),
 }));
 
 export const sessionRelations = relations(session, ({ one }) => ({
@@ -96,6 +137,13 @@ export const sessionRelations = relations(session, ({ one }) => ({
 export const accountRelations = relations(account, ({ one }) => ({
   user: one(userTable, {
     fields: [account.userId],
+    references: [userTable.id],
+  }),
+}));
+
+export const addressRelations = relations(addressTable, ({ one }) => ({
+  user: one(userTable, {
+    fields: [addressTable.userId],
     references: [userTable.id],
   }),
 }));
