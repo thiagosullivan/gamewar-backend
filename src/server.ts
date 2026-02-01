@@ -3,7 +3,7 @@ import cors from "cors";
 import helmet from "helmet";
 import compression from "compression";
 import dotenv from "dotenv";
-import authRouter from "./routes/auth.js";
+import authRouter from "./routes/auth/auth.js";
 // import { toNodeHandler } from "better-auth/node";
 // import { auth } from "./lib/auth.js";
 // import path from "path";

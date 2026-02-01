@@ -7,7 +7,7 @@ export const auth = betterAuth({
   baseURL: process.env.BETTER_AUTH_URL as string,
   secret: process.env.BETTER_AUTH_SECRET as string,
   emailAndPassword: {
-    enabled: false, // Mantenha false se não quiser usar email/senha
+    enabled: true,
   },
   socialProviders: {
     google: {
