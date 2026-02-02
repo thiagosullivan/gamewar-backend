@@ -5,6 +5,7 @@ import compression from "compression";
 import dotenv from "dotenv";
 import authRouter from "./routes/auth/auth.js";
 import userRouter from "./routes/user/user.js";
+import addressRouter from "./routes/address/address.js";
 // import { toNodeHandler } from "better-auth/node";
 // import { auth } from "./lib/auth.js";
 // import path from "path";
@@ -52,6 +53,7 @@ app.use(express.urlencoded({ extended: true }));
 // Routes
 app.use("/api/auth", authRouter);
 app.use("/api/user", userRouter);
+app.use("/api/addresses", addressRouter);
 
 app.get("/api/health", (req, res) => {
   res.json({
