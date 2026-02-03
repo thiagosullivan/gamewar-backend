@@ -3,6 +3,7 @@ import {
   boolean,
   index,
   integer,
+  pgEnum,
   pgTable,
   text,
   timestamp,
@@ -207,3 +208,134 @@ export const productVariantRelations = relations(
     };
   },
 );
+
+// Enum para status do pedido
+export const orderStatusEnum = pgEnum("order_status", [
+  "pending",
+  "processing",
+  "shipped",
+  "delivered",
+  "cancelled",
+  "refunded",
+]);
+
+// Enum para método de pagamento
+export const paymentMethodEnum = pgEnum("payment_method", [
+  "credit_card",
+  "debit_card",
+  "pix",
+  "boleto",
+  "cash",
+]);
+
+export const orderTable = pgTable(
+  "order",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    userId: text("user_id")
+      .notNull()
+      .references(() => userTable.id, { onDelete: "cascade" }),
+    addressId: uuid("address_id").references(() => addressTable.id, {
+      onDelete: "set null",
+    }),
+
+    // Informações do pedido
+    orderNumber: text("order_number").notNull().unique(),
+    status: orderStatusEnum("status").default("pending").notNull(),
+
+    // Informações de pagamento
+    paymentMethod: paymentMethodEnum("payment_method"),
+    paymentStatus: text("payment_status", {
+      enum: ["pending", "paid", "failed", "refunded"],
+    })
+      .default("pending")
+      .notNull(),
+    transactionId: text("transaction_id"),
+
+    // Valores monetários
+    subtotal: integer("subtotal").notNull(), // em centavos
+    shipping: integer("shipping").default(0).notNull(),
+    discount: integer("discount").default(0).notNull(),
+    total: integer("total").notNull(), // em centavos
+
+    // Informações adicionais
+    notes: text("notes"),
+    trackingCode: text("tracking_code"),
+    estimatedDelivery: timestamp("estimated_delivery"),
+
+    // Metadados
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+    updatedAt: timestamp("updated_at")
+      .defaultNow()
+      .$onUpdate(() => new Date())
+      .notNull(),
+  },
+  (table) => [
+    index("order_user_id_idx").on(table.userId),
+    index("order_status_idx").on(table.status),
+    index("order_created_at_idx").on(table.createdAt),
+  ],
+);
+
+// Tabela de itens do pedido
+export const orderItemTable = pgTable(
+  "order_item",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    orderId: uuid("order_id")
+      .notNull()
+      .references(() => orderTable.id, { onDelete: "cascade" }),
+    productId: uuid("product_id").references(() => productTable.id, {
+      onDelete: "set null",
+    }),
+    productVariantId: uuid("product_variant_id").references(
+      () => productVariantTable.id,
+      { onDelete: "set null" },
+    ),
+
+    // Informações do produto no momento da compra (snapshot)
+    productName: text("product_name").notNull(),
+    productImage: text("product_image"),
+    variantName: text("variant_name"),
+    color: text("color"),
+
+    // Quantidade e preço
+    quantity: integer("quantity").notNull(),
+    unitPrice: integer("unit_price").notNull(), // em centavos
+    totalPrice: integer("total_price").notNull(), // em centavos
+
+    // Metadados
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+  },
+  (table) => [
+    index("order_item_order_id_idx").on(table.orderId),
+    index("order_item_product_id_idx").on(table.productId),
+  ],
+);
+
+export const orderRelations = relations(orderTable, ({ one, many }) => ({
+  user: one(userTable, {
+    fields: [orderTable.userId],
+    references: [userTable.id],
+  }),
+  address: one(addressTable, {
+    fields: [orderTable.addressId],
+    references: [addressTable.id],
+  }),
+  items: many(orderItemTable),
+}));
+
+export const orderItemRelations = relations(orderItemTable, ({ one }) => ({
+  order: one(orderTable, {
+    fields: [orderItemTable.orderId],
+    references: [orderTable.id],
+  }),
+  product: one(productTable, {
+    fields: [orderItemTable.productId],
+    references: [productTable.id],
+  }),
+  variant: one(productVariantTable, {
+    fields: [orderItemTable.productVariantId],
+    references: [productVariantTable.id],
+  }),
+}));
