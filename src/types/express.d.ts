@@ -1,3 +1,4 @@
+// src/types/express.d.ts
 declare global {
   namespace Express {
     interface Request {
@@ -8,6 +9,7 @@ declare global {
         image?: string | undefined;
         phone?: string | undefined;
         emailVerified: boolean;
+        role: string;
       };
     }
   }
