@@ -5,14 +5,14 @@ import { userTable } from "../../db/schema.js";
 import { authenticate, authorize } from "../../middleware/auth.js";
 import { eq, desc } from "drizzle-orm";
 
-const adminUserRouter = express.Router();
+const adminUsersRouter = express.Router();
 
 // middleware to verify auth and role
-adminUserRouter.use(authenticate);
-adminUserRouter.use(authorize("admin"));
+adminUsersRouter.use(authenticate);
+adminUsersRouter.use(authorize("admin"));
 
 // GET /api/admin/users - Get All Users (only admins)
-adminUserRouter.get("/", async (req: Request, res: Response) => {
+adminUsersRouter.get("/", async (req: Request, res: Response) => {
   try {
     const { limit = 50, offset = 0 } = req.query;
 
@@ -45,7 +45,7 @@ adminUserRouter.get("/", async (req: Request, res: Response) => {
 });
 
 // PATCH /api/admin/users/:id/role - Update user role
-adminUserRouter.patch("/:id/role", async (req: Request, res: Response) => {
+adminUsersRouter.patch("/:id/role", async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
     const { role } = req.body;
@@ -108,4 +108,4 @@ adminUserRouter.patch("/:id/role", async (req: Request, res: Response) => {
   }
 });
 
-export default adminUserRouter;
+export default adminUsersRouter;

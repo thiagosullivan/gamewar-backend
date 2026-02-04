@@ -5,13 +5,13 @@ import { db } from "../../db/index.js";
 import { addressTable } from "../../db/schema.js";
 import { authenticate } from "../../middleware/auth.js";
 
-const addressRouter = express.Router();
+const addressesRouter = express.Router();
 
 // middleware
-addressRouter.use(authenticate);
+addressesRouter.use(authenticate);
 
 // POST /api/addresses - Add new address
-addressRouter.post("/", async (req: Request, res: Response) => {
+addressesRouter.post("/", async (req: Request, res: Response) => {
   try {
     const userId = req.user!.id;
     const {
@@ -79,7 +79,7 @@ addressRouter.post("/", async (req: Request, res: Response) => {
 });
 
 // GET /api/addresses - Get all addressess
-addressRouter.get("/", async (req: Request, res: Response) => {
+addressesRouter.get("/", async (req: Request, res: Response) => {
   try {
     const userId = req.user!.id;
 
@@ -104,7 +104,7 @@ addressRouter.get("/", async (req: Request, res: Response) => {
 });
 
 // GET /api/addresses/:id - Get address by ID
-addressRouter.get("/:id", async (req: Request, res: Response) => {
+addressesRouter.get("/:id", async (req: Request, res: Response) => {
   try {
     const userId = req.user!.id;
     const addressId = req.params.id;
@@ -142,7 +142,7 @@ addressRouter.get("/:id", async (req: Request, res: Response) => {
 });
 
 // PUT /api/addresses/:id - Update address
-addressRouter.put("/:id", async (req: Request, res: Response) => {
+addressesRouter.put("/:id", async (req: Request, res: Response) => {
   try {
     const userId = req.user!.id;
     const addressId = req.params.id;
@@ -206,7 +206,7 @@ addressRouter.put("/:id", async (req: Request, res: Response) => {
 });
 
 // DELETE /api/addresses/:id - Delete address
-addressRouter.delete("/:id", async (req: Request, res: Response) => {
+addressesRouter.delete("/:id", async (req: Request, res: Response) => {
   try {
     const userId = req.user!.id;
     const addressId = req.params.id;
@@ -266,56 +266,59 @@ addressRouter.delete("/:id", async (req: Request, res: Response) => {
 });
 
 // PATCH /api/addresses/:id/set-default - Define address as default
-addressRouter.patch("/:id/set-default", async (req: Request, res: Response) => {
-  try {
-    const userId = req.user!.id;
-    const addressId = req.params.id;
+addressesRouter.patch(
+  "/:id/set-default",
+  async (req: Request, res: Response) => {
+    try {
+      const userId = req.user!.id;
+      const addressId = req.params.id;
 
-    if (!addressId) {
-      return res.status(401).json({ error: "ID endereço não encontrado" });
-    }
+      if (!addressId) {
+        return res.status(401).json({ error: "ID endereço não encontrado" });
+      }
 
-    const [existingAddress] = await db
-      .select()
-      .from(addressTable)
-      .where(
-        and(eq(addressTable.id, addressId), eq(addressTable.userId, userId)),
-      )
-      .limit(1);
+      const [existingAddress] = await db
+        .select()
+        .from(addressTable)
+        .where(
+          and(eq(addressTable.id, addressId), eq(addressTable.userId, userId)),
+        )
+        .limit(1);
 
-    if (!existingAddress) {
-      return res.status(404).json({
+      if (!existingAddress) {
+        return res.status(404).json({
+          success: false,
+          error: "Endereço não encontrado",
+        });
+      }
+
+      await db
+        .update(addressTable)
+        .set({ isDefault: false })
+        .where(eq(addressTable.userId, userId));
+
+      const [updatedAddress] = await db
+        .update(addressTable)
+        .set({
+          isDefault: true,
+          updatedAt: new Date(),
+        })
+        .where(eq(addressTable.id, addressId))
+        .returning();
+
+      res.json({
+        success: true,
+        message: "Endereço definido como padrão",
+        address: updatedAddress,
+      });
+    } catch (error: any) {
+      console.error("Set default address error:", error);
+      res.status(500).json({
         success: false,
-        error: "Endereço não encontrado",
+        error: "Erro ao definir endereço padrão",
       });
     }
+  },
+);
 
-    await db
-      .update(addressTable)
-      .set({ isDefault: false })
-      .where(eq(addressTable.userId, userId));
-
-    const [updatedAddress] = await db
-      .update(addressTable)
-      .set({
-        isDefault: true,
-        updatedAt: new Date(),
-      })
-      .where(eq(addressTable.id, addressId))
-      .returning();
-
-    res.json({
-      success: true,
-      message: "Endereço definido como padrão",
-      address: updatedAddress,
-    });
-  } catch (error: any) {
-    console.error("Set default address error:", error);
-    res.status(500).json({
-      success: false,
-      error: "Erro ao definir endereço padrão",
-    });
-  }
-});
-
-export default addressRouter;
+export default addressesRouter;

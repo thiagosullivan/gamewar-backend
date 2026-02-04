@@ -12,10 +12,10 @@ import {
 } from "../../db/schema.js";
 import { authenticate } from "../../middleware/auth.js";
 
-const orderRouter = express.Router();
+const ordersRouter = express.Router();
 
 // middleware
-orderRouter.use(authenticate);
+ordersRouter.use(authenticate);
 
 // Create an unique order number
 const generateOrderNumber = () => {
@@ -25,7 +25,7 @@ const generateOrderNumber = () => {
 };
 
 // POST /api/orders - Create new order
-orderRouter.post("/", async (req: Request, res: Response) => {
+ordersRouter.post("/", async (req: Request, res: Response) => {
   try {
     const userId = req.user!.id;
     const {
@@ -209,7 +209,7 @@ orderRouter.post("/", async (req: Request, res: Response) => {
 });
 
 // GET /api/orders - Get orders by user
-orderRouter.get("/", async (req: Request, res: Response) => {
+ordersRouter.get("/", async (req: Request, res: Response) => {
   try {
     const userId = req.user!.id;
     const { status, limit = 20, offset = 0 } = req.query;
@@ -286,7 +286,7 @@ orderRouter.get("/", async (req: Request, res: Response) => {
 });
 
 // GET /api/orders/:id - Get order details
-orderRouter.get("/:id", async (req: Request, res: Response) => {
+ordersRouter.get("/:id", async (req: Request, res: Response) => {
   try {
     const userId = req.user!.id;
     const orderId = req.params.id;
@@ -338,7 +338,7 @@ orderRouter.get("/:id", async (req: Request, res: Response) => {
 });
 
 // PATCH /api/orders/:id/cancel - Cancel Order
-orderRouter.patch("/:id/cancel", async (req: Request, res: Response) => {
+ordersRouter.patch("/:id/cancel", async (req: Request, res: Response) => {
   try {
     const userId = req.user!.id;
     const orderId = req.params.id;
@@ -390,4 +390,4 @@ orderRouter.patch("/:id/cancel", async (req: Request, res: Response) => {
   }
 });
 
-export default orderRouter;
+export default ordersRouter;
