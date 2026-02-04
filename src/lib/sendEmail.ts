@@ -1,4 +1,3 @@
-// lib/sendEmail.ts - Versão simplificada
 import nodemailer from "nodemailer";
 
 // Configuração única do transporter

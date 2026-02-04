@@ -1,4 +1,3 @@
-// src/routes/addresses.ts
 import express from "express";
 import type { Request, Response } from "express";
 import { eq, and, desc } from "drizzle-orm";
