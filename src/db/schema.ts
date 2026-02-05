@@ -342,3 +342,45 @@ export const orderItemRelations = relations(orderItemTable, ({ one }) => ({
     references: [productVariantTable.id],
   }),
 }));
+
+export const carouselTable = pgTable("carousel", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  imageUrl: text("image_url").notNull(),
+  order: integer("order").notNull(),
+  title: text("title"),
+  description: text("description"),
+  link: text("link"),
+  active: boolean("active").default(true),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at")
+    .defaultNow()
+    .$onUpdate(() => new Date()),
+});
+
+export const bannerTable = pgTable("banner", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  imageUrl: text("image_url").notNull(),
+  title: text("title"),
+  link: text("link"),
+  position: text("position", {
+    enum: ["home-top", "home-middle", "sidebar", "bottom"],
+  }).default("home-top"),
+  active: boolean("active").default(true),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at")
+    .defaultNow()
+    .$onUpdate(() => new Date()),
+});
+
+export const contactInfoTable = pgTable("contact_info", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  phone: text("phone"),
+  email: text("email"),
+  whatsapp: text("whatsapp"),
+  instagram: text("instagram"),
+  facebook: text("facebook"),
+  twitter: text("twitter"),
+  address: text("address"),
+  businessHours: text("business_hours"),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
