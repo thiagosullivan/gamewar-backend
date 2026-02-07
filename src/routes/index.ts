@@ -16,6 +16,7 @@ import userRouter from "./user/user.js";
 import addressesRouter from "./addresses/addresses.js";
 import ordersRouter from "./orders/orders.js";
 import adminUsersRouter from "./admin/admin.js";
+import adminCategoriesRouter from "./admin/categories/index.js";
 
 const router = express.Router();
 
@@ -37,6 +38,7 @@ router.use("/admin/users", adminUsersRouter);
 router.use("/admin/content/carousel", adminCarouselRouter);
 router.use("/admin/content/banners", adminBannerRouter);
 router.use("/admin/content/contact", adminContactRouter);
+router.use("/admin/categories/", adminCategoriesRouter);
 
 // health route
 router.get("/health", (req, res) => {
