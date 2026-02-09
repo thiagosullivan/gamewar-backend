@@ -51,6 +51,87 @@ const productImages = {
       "https://img.terabyteshop.com.br/produto/g/placa-mae-gigabyte-b760m-ds3h-wifi6e-gen5-chipset-b760-intel-lga-1700-m-atx-ddr5_250596.jpg",
     ],
   },
+  // Novos produtos adicionados
+  "Memória RAM Kingston Fury Beast 32GB": {
+    "DDR4 3600MHz": [
+      "https://img.terabyteshop.com.br/produto/g/memoria-kingston-fury-beast-rgb-16gb-1x16gb-ddr4-3200mhz-kf432c16b1a16_259615.jpg",
+    ],
+    "DDR5 6000MHz": [
+      "https://img.terabyteshop.com.br/produto/g/memoria-kingston-fury-beast-rgb-16gb-1x16gb-ddr5-6000mhz-kf560c36b1a16_259628.jpg",
+    ],
+  },
+  "Placa de Vídeo RTX 4070 Super": {
+    "12GB GDDR6X": [
+      "https://img.terabyteshop.com.br/produto/g/placa-de-video-msi-nvidia-geforce-rtx-4070-super-ventus-2x-12gb-gddr6x-dlss-ray-tracing_179830.jpg",
+    ],
+    "16GB GDDR6X": [
+      "https://img.terabyteshop.com.br/produto/g/placa-de-video-gigabyte-nvidia-geforce-rtx-4070-super-windforce-oc-12gb-gddr6x_179831.jpg",
+    ],
+  },
+  "Processador AMD Ryzen 7 7800X3D": {
+    "8 Núcleos": [
+      "https://img.terabyteshop.com.br/produto/g/processador-amd-ryzen-7-7800x3d-42-ghz-50ghz-turbo-am5-8-cores-16-threads-100-100000910wof_174135.jpg",
+    ],
+    "Com Cooler": [
+      "https://img.terabyteshop.com.br/produto/g/processador-amd-ryzen-7-7700-38ghz-54ghz-turbo-am5-8-cores-16-threads-com-cooler_172846.jpg",
+    ],
+  },
+  "Water Cooler Deepcool LS720": {
+    "360mm RGB": [
+      "https://img.terabyteshop.com.br/produto/g/water-cooler-deepcool-ls720-360mm-rgb-preto-r-ls720-bkammn-g-1_175570.jpg",
+    ],
+    "240mm ARGB": [
+      "https://img.terabyteshop.com.br/produto/g/water-cooler-deepcool-ls520-240mm-argb-preto-r-ls520-bkammn-g-1_178905.jpg",
+    ],
+  },
+  "Fonte Corsair RM850x": {
+    "850W 80 Plus Gold": [
+      "https://img.terabyteshop.com.br/produto/g/fonte-corsair-rm850x-850w-80-plus-gold-modular-cp-9020188-na_207064.jpg",
+    ],
+    "750W 80 Plus Gold": [
+      "https://img.terabyteshop.com.br/produto/g/fonte-corsair-rm750x-750w-80-plus-gold-modular-cp-9020187-na_250874.jpg",
+    ],
+  },
+  "Gabinete Gamer NZXT H9 Flow": {
+    "Branco RGB": [
+      "https://img.terabyteshop.com.br/produto/g/gabinete-nzxt-h9-flow-branco-mid-tower-atx-3-fans-inclusos-ca-h9fb-w1_168086.png",
+    ],
+    "Preto RGB": [
+      "https://img.terabyteshop.com.br/produto/g/gabinete-nzxt-h9-flow-preto-mid-tower-atx-3-fans-inclusos-ca-h9fb-b1_250596.jpg",
+    ],
+  },
+  "Monitor Gamer Samsung Odyssey G5": {
+    '27" 144Hz': [
+      "https://img.terabyteshop.com.br/produto/g/monitor-gamer-samsung-odyssey-g5-27-va-165hz-1ms-freesync-premium-hdr10-lc27g55tqwlxzd_259615.jpg",
+    ],
+    '32" 165Hz': [
+      "https://img.terabyteshop.com.br/produto/g/monitor-gamer-samsung-odyssey-g5-32-va-165hz-1ms-freesync-premium-lc32g55tqwmxzd_259628.jpg",
+    ],
+  },
+  "Teclado Mecânico Redragon Kumara": {
+    "RGB Switch Red": [
+      "https://img.terabyteshop.com.br/produto/g/teclado-mecanico-gamer-redragon-kumara-k552-rgb-switch-outemu-red-abnt2-preto-k552-rgb-1_179830.jpg",
+    ],
+    "Switch Blue": [
+      "https://img.terabyteshop.com.br/produto/g/teclado-mecanico-gamer-redragon-kumara-k552-switch-outemu-blue-abnt2-preto-k552-1_179831.jpg",
+    ],
+  },
+  "Mouse Gamer Logitech G Pro X Superlight": {
+    "Preto 25K DPI": [
+      "https://img.terabyteshop.com.br/produto/g/mouse-gamer-logitech-g-pro-x-superlight-25k-dpi-rgb-6-botoes-preto-910-005631_174135.jpg",
+    ],
+    "Branco Wireless": [
+      "https://img.terabyteshop.com.br/produto/g/mouse-gamer-logitech-g-pro-x-superlight-2-wireless-32k-dpi-rgb-6-botoes-branco-910-006026_172846.jpg",
+    ],
+  },
+  "Headset Gamer HyperX Cloud II": {
+    "7.1 Surround": [
+      "https://img.terabyteshop.com.br/produto/g/headset-gamer-hyperx-cloud-ii-71-surround-sound-hx-hsc2-bkna_175570.jpg",
+    ],
+    Wireless: [
+      "https://img.terabyteshop.com.br/produto/g/headset-gamer-hyperx-cloud-ii-wireless-71-surround-sound-hx-hsc2-wl-bkna_178905.jpg",
+    ],
+  },
 };
 
 function generateSlug(name: string): string {
@@ -82,6 +163,27 @@ const categories = [
     name: "Placas-Mãe",
     description: "Motherboards para todas as plataformas",
   },
+  // Novas categorias adicionadas
+  {
+    name: "Refrigeração",
+    description: "Coolers, water coolers e sistemas de refrigeração",
+  },
+  {
+    name: "Fontes",
+    description: "Fontes de alimentação para PC",
+  },
+  {
+    name: "Gabinetes",
+    description: "Gabinetes para montagem de PC",
+  },
+  {
+    name: "Monitores",
+    description: "Monitores gamers e profissionais",
+  },
+  {
+    name: "Periféricos",
+    description: "Teclados, mouses e headsets gamers",
+  },
 ];
 
 const products = [
@@ -96,6 +198,16 @@ const products = [
       { color: "DDR5 5600MHz", price: 39990 }, // R$ 399,90
     ],
   },
+  {
+    name: "Memória RAM Kingston Fury Beast 32GB",
+    description:
+      "Memória RAM Kingston Fury Beast RGB, alta performance e overclocking fácil.",
+    categoryName: "Memória RAM",
+    variants: [
+      { color: "DDR4 3600MHz", price: 59990 }, // R$ 599,90
+      { color: "DDR5 6000MHz", price: 79990 }, // R$ 799,90
+    ],
+  },
 
   // Placas de Vídeo
   {
@@ -108,6 +220,16 @@ const products = [
       { color: "12GB GDDR6", price: 259900 }, // R$ 2.599,00
     ],
   },
+  {
+    name: "Placa de Vídeo RTX 4070 Super",
+    description:
+      "Placa de vídeo NVIDIA GeForce RTX 4070 Super com performance excepcional para 4K.",
+    categoryName: "Placas de Vídeo",
+    variants: [
+      { color: "12GB GDDR6X", price: 359900 }, // R$ 3.599,00
+      { color: "16GB GDDR6X", price: 389900 }, // R$ 3.899,00
+    ],
+  },
 
   // Processadores
   {
@@ -118,6 +240,16 @@ const products = [
     variants: [
       { color: "14ª Geração", price: 189900 }, // R$ 1.899,00
       { color: "13ª Geração", price: 159900 }, // R$ 1.599,00
+    ],
+  },
+  {
+    name: "Processador AMD Ryzen 7 7800X3D",
+    description:
+      "Processador AMD Ryzen 7 com tecnologia 3D V-Cache para jogos de alta performance.",
+    categoryName: "Processadores",
+    variants: [
+      { color: "8 Núcleos", price: 249900 }, // R$ 2.499,00
+      { color: "Com Cooler", price: 259900 }, // R$ 2.599,00
     ],
   },
 
@@ -144,6 +276,86 @@ const products = [
       { color: "ASUS TUF Gaming", price: 129900 }, // R$ 1.299,00
       { color: "Gigabyte AORUS", price: 139900 }, // R$ 1.399,00
       { color: "MSI MAG", price: 119900 }, // R$ 1.199,00
+    ],
+  },
+
+  // Refrigeração
+  {
+    name: "Water Cooler Deepcool LS720",
+    description:
+      "Water cooler all-in-one de 360mm com iluminação RGB e performance silenciosa.",
+    categoryName: "Refrigeração",
+    variants: [
+      { color: "360mm RGB", price: 89990 }, // R$ 899,90
+      { color: "240mm ARGB", price: 69990 }, // R$ 699,90
+    ],
+  },
+
+  // Fontes
+  {
+    name: "Fonte Corsair RM850x",
+    description:
+      "Fonte modular 80 Plus Gold da Corsair, eficiente e silenciosa para builds de alta performance.",
+    categoryName: "Fontes",
+    variants: [
+      { color: "850W 80 Plus Gold", price: 109900 }, // R$ 1.099,00
+      { color: "750W 80 Plus Gold", price: 89990 }, // R$ 899,90
+    ],
+  },
+
+  // Gabinetes
+  {
+    name: "Gabinete Gamer NZXT H9 Flow",
+    description:
+      "Gabinete mid-tower com design de vidro duplo, excelente fluxo de ar e iluminação RGB.",
+    categoryName: "Gabinetes",
+    variants: [
+      { color: "Branco RGB", price: 149900 }, // R$ 1.499,00
+      { color: "Preto RGB", price: 139900 }, // R$ 1.399,00
+    ],
+  },
+
+  // Monitores
+  {
+    name: "Monitor Gamer Samsung Odyssey G5",
+    description:
+      "Monitor gamer curvado com alta taxa de atualização e tecnologia FreeSync Premium.",
+    categoryName: "Monitores",
+    variants: [
+      { color: '27" 144Hz', price: 129900 }, // R$ 1.299,00
+      { color: '32" 165Hz', price: 159900 }, // R$ 1.599,00
+    ],
+  },
+
+  // Periféricos
+  {
+    name: "Teclado Mecânico Redragon Kumara",
+    description:
+      "Teclado mecânico gamer com switches Outemu, iluminação RGB e construção em metal.",
+    categoryName: "Periféricos",
+    variants: [
+      { color: "RGB Switch Red", price: 29990 }, // R$ 299,90
+      { color: "Switch Blue", price: 27990 }, // R$ 279,90
+    ],
+  },
+  {
+    name: "Mouse Gamer Logitech G Pro X Superlight",
+    description:
+      "Mouse gamer wireless ultraleve com sensor HERO 25K e design profissional para eSports.",
+    categoryName: "Periféricos",
+    variants: [
+      { color: "Preto 25K DPI", price: 69990 }, // R$ 699,90
+      { color: "Branco Wireless", price: 74990 }, // R$ 749,90
+    ],
+  },
+  {
+    name: "Headset Gamer HyperX Cloud II",
+    description:
+      "Headset gamer com som surround 7.1, microfone removível e construção em alumínio.",
+    categoryName: "Periféricos",
+    variants: [
+      { color: "7.1 Surround", price: 49990 }, // R$ 499,90
+      { color: "Wireless", price: 59990 }, // R$ 599,90
     ],
   },
 ];
