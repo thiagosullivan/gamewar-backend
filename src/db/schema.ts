@@ -171,6 +171,7 @@ export const productTable = pgTable("product", {
   categoryId: uuid("category_id")
     .notNull()
     .references(() => categoryTable.id, { onDelete: "set null" }),
+  brand: text().notNull(),
   name: text().notNull(),
   slug: text().notNull().unique(),
   description: text().notNull(),
@@ -179,7 +180,7 @@ export const productTable = pgTable("product", {
 
 export const productRelations = relations(productTable, ({ one, many }) => {
   return {
-    products: one(categoryTable, {
+    category: one(categoryTable, {
       fields: [productTable.categoryId],
       references: [categoryTable.id],
     }),
@@ -204,7 +205,7 @@ export const productVariantRelations = relations(
   productVariantTable,
   (params) => {
     return {
-      products: params.one(productTable, {
+      product: params.one(productTable, {
         fields: [productVariantTable.productId],
         references: [productTable.id],
       }),
