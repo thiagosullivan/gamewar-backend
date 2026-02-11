@@ -19,6 +19,8 @@ import adminUsersRouter from "./admin/admin.js";
 import adminCategoriesRouter from "./admin/categories/index.js";
 import adminProductsRouter from "./admin/products/index.js";
 import adminVariantsRouter from "./admin/products/variants.js";
+import publicProductsRouter from "./public/products.js";
+import publicCategoriesRouter from "./public/categories.js";
 
 const router = express.Router();
 
@@ -26,6 +28,8 @@ const router = express.Router();
 router.use("/content/carousel", publicCarouselRouter);
 router.use("/content/banners", publicBannerRouter);
 router.use("/content/contact", publicContactRouter);
+router.use("/products", publicProductsRouter);
+router.use("/categories", publicCategoriesRouter);
 
 // Authentication routes
 router.use("/auth", authRouter);
