@@ -51,7 +51,6 @@ const productImages = {
       "https://img.terabyteshop.com.br/produto/g/placa-mae-gigabyte-b760m-ds3h-wifi6e-gen5-chipset-b760-intel-lga-1700-m-atx-ddr5_250596.jpg",
     ],
   },
-  // Novos produtos adicionados
   "Memória RAM Kingston Fury Beast 32GB": {
     "DDR4 3600MHz": [
       "https://img.terabyteshop.com.br/produto/g/memoria-kingston-fury-beast-rgb-16gb-1x16gb-ddr4-3200mhz-kf432c16b1a16_259615.jpg",
@@ -137,6 +136,8 @@ const productImages = {
 function generateSlug(name: string): string {
   return name
     .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
     .replace(/[^a-z0-9\s-]/g, "")
     .replace(/\s+/g, "-")
     .trim();
@@ -163,7 +164,6 @@ const categories = [
     name: "Placas-Mãe",
     description: "Motherboards para todas as plataformas",
   },
-  // Novas categorias adicionadas
   {
     name: "Refrigeração",
     description: "Coolers, water coolers e sistemas de refrigeração",
@@ -187,175 +187,190 @@ const categories = [
 ];
 
 const products = [
-  // Memória RAM
+  // ========== MEMÓRIA RAM ==========
   {
     name: "Memória RAM Corsair Vengeance 16GB",
+    brand: "Corsair", // ✅ MARCA ADICIONADA
     description:
       "Memória RAM Corsair Vengeance RGB, alta performance para gamers e creators.",
     categoryName: "Memória RAM",
     variants: [
-      { color: "DDR4 3200MHz", price: 29990 }, // R$ 299,90
-      { color: "DDR5 5600MHz", price: 39990 }, // R$ 399,90
+      { color: "DDR4 3200MHz", price: 29990 },
+      { color: "DDR5 5600MHz", price: 39990 },
     ],
   },
   {
     name: "Memória RAM Kingston Fury Beast 32GB",
+    brand: "Kingston", // ✅ MARCA ADICIONADA
     description:
       "Memória RAM Kingston Fury Beast RGB, alta performance e overclocking fácil.",
     categoryName: "Memória RAM",
     variants: [
-      { color: "DDR4 3600MHz", price: 59990 }, // R$ 599,90
-      { color: "DDR5 6000MHz", price: 79990 }, // R$ 799,90
+      { color: "DDR4 3600MHz", price: 59990 },
+      { color: "DDR5 6000MHz", price: 79990 },
     ],
   },
 
-  // Placas de Vídeo
+  // ========== PLACAS DE VÍDEO ==========
   {
     name: "Placa de Vídeo RTX 4060",
+    brand: "NVIDIA", // ✅ MARCA ADICIONADA
     description:
       "Placa de vídeo NVIDIA GeForce RTX 4060 com DLSS 3 e ray tracing.",
     categoryName: "Placas de Vídeo",
     variants: [
-      { color: "8GB GDDR6", price: 229900 }, // R$ 2.299,00
-      { color: "12GB GDDR6", price: 259900 }, // R$ 2.599,00
+      { color: "8GB GDDR6", price: 229900 },
+      { color: "12GB GDDR6", price: 259900 },
     ],
   },
   {
     name: "Placa de Vídeo RTX 4070 Super",
+    brand: "NVIDIA", // ✅ MARCA ADICIONADA
     description:
       "Placa de vídeo NVIDIA GeForce RTX 4070 Super com performance excepcional para 4K.",
     categoryName: "Placas de Vídeo",
     variants: [
-      { color: "12GB GDDR6X", price: 359900 }, // R$ 3.599,00
-      { color: "16GB GDDR6X", price: 389900 }, // R$ 3.899,00
+      { color: "12GB GDDR6X", price: 359900 },
+      { color: "16GB GDDR6X", price: 389900 },
     ],
   },
 
-  // Processadores
+  // ========== PROCESSADORES ==========
   {
     name: "Processador Intel Core i7",
+    brand: "Intel", // ✅ MARCA ADICIONADA
     description:
       "Processador Intel Core i7 de última geração para alta performance.",
     categoryName: "Processadores",
     variants: [
-      { color: "14ª Geração", price: 189900 }, // R$ 1.899,00
-      { color: "13ª Geração", price: 159900 }, // R$ 1.599,00
+      { color: "14ª Geração", price: 189900 },
+      { color: "13ª Geração", price: 159900 },
     ],
   },
   {
     name: "Processador AMD Ryzen 7 7800X3D",
+    brand: "AMD", // ✅ MARCA ADICIONADA
     description:
       "Processador AMD Ryzen 7 com tecnologia 3D V-Cache para jogos de alta performance.",
     categoryName: "Processadores",
     variants: [
-      { color: "8 Núcleos", price: 249900 }, // R$ 2.499,00
-      { color: "Com Cooler", price: 259900 }, // R$ 2.599,00
+      { color: "8 Núcleos", price: 249900 },
+      { color: "Com Cooler", price: 259900 },
     ],
   },
 
-  // Armazenamento
+  // ========== ARMAZENAMENTO ==========
   {
     name: "SSD NVMe 1TB",
+    brand: "Kingston", // ✅ MARCA ADICIONADA (marca principal)
     description:
       "SSD NVMe de alta velocidade para boot rápido e carregamento de jogos.",
     categoryName: "Armazenamento",
     variants: [
-      { color: "Kingston Fury", price: 44990 }, // R$ 449,90
-      { color: "Samsung 980 Pro", price: 59990 }, // R$ 599,90
-      { color: "WD Black", price: 52990 }, // R$ 529,90
+      { color: "Kingston Fury", price: 44990 },
+      { color: "Samsung 980 Pro", price: 59990 },
+      { color: "WD Black", price: 52990 },
     ],
   },
 
-  // Placas-Mãe
+  // ========== PLACAS-MÃE ==========
   {
     name: "Placa-Mãe B760",
+    brand: "Gigabyte", // ✅ MARCA ADICIONADA (marca principal)
     description:
       "Placa-mãe chipset B760 para processadores Intel de 13ª e 14ª geração.",
     categoryName: "Placas-Mãe",
     variants: [
-      { color: "ASUS TUF Gaming", price: 129900 }, // R$ 1.299,00
-      { color: "Gigabyte AORUS", price: 139900 }, // R$ 1.399,00
-      { color: "MSI MAG", price: 119900 }, // R$ 1.199,00
+      { color: "ASUS TUF Gaming", price: 129900 },
+      { color: "Gigabyte AORUS", price: 139900 },
+      { color: "MSI MAG", price: 119900 },
     ],
   },
 
-  // Refrigeração
+  // ========== REFRIGERAÇÃO ==========
   {
     name: "Water Cooler Deepcool LS720",
+    brand: "Deepcool", // ✅ MARCA ADICIONADA
     description:
       "Water cooler all-in-one de 360mm com iluminação RGB e performance silenciosa.",
     categoryName: "Refrigeração",
     variants: [
-      { color: "360mm RGB", price: 89990 }, // R$ 899,90
-      { color: "240mm ARGB", price: 69990 }, // R$ 699,90
+      { color: "360mm RGB", price: 89990 },
+      { color: "240mm ARGB", price: 69990 },
     ],
   },
 
-  // Fontes
+  // ========== FONTES ==========
   {
     name: "Fonte Corsair RM850x",
+    brand: "Corsair", // ✅ MARCA ADICIONADA
     description:
       "Fonte modular 80 Plus Gold da Corsair, eficiente e silenciosa para builds de alta performance.",
     categoryName: "Fontes",
     variants: [
-      { color: "850W 80 Plus Gold", price: 109900 }, // R$ 1.099,00
-      { color: "750W 80 Plus Gold", price: 89990 }, // R$ 899,90
+      { color: "850W 80 Plus Gold", price: 109900 },
+      { color: "750W 80 Plus Gold", price: 89990 },
     ],
   },
 
-  // Gabinetes
+  // ========== GABINETES ==========
   {
     name: "Gabinete Gamer NZXT H9 Flow",
+    brand: "NZXT", // ✅ MARCA ADICIONADA
     description:
       "Gabinete mid-tower com design de vidro duplo, excelente fluxo de ar e iluminação RGB.",
     categoryName: "Gabinetes",
     variants: [
-      { color: "Branco RGB", price: 149900 }, // R$ 1.499,00
-      { color: "Preto RGB", price: 139900 }, // R$ 1.399,00
+      { color: "Branco RGB", price: 149900 },
+      { color: "Preto RGB", price: 139900 },
     ],
   },
 
-  // Monitores
+  // ========== MONITORES ==========
   {
     name: "Monitor Gamer Samsung Odyssey G5",
+    brand: "Samsung", // ✅ MARCA ADICIONADA
     description:
       "Monitor gamer curvado com alta taxa de atualização e tecnologia FreeSync Premium.",
     categoryName: "Monitores",
     variants: [
-      { color: '27" 144Hz', price: 129900 }, // R$ 1.299,00
-      { color: '32" 165Hz', price: 159900 }, // R$ 1.599,00
+      { color: '27" 144Hz', price: 129900 },
+      { color: '32" 165Hz', price: 159900 },
     ],
   },
 
-  // Periféricos
+  // ========== PERIFÉRICOS ==========
   {
     name: "Teclado Mecânico Redragon Kumara",
+    brand: "Redragon", // ✅ MARCA ADICIONADA
     description:
       "Teclado mecânico gamer com switches Outemu, iluminação RGB e construção em metal.",
     categoryName: "Periféricos",
     variants: [
-      { color: "RGB Switch Red", price: 29990 }, // R$ 299,90
-      { color: "Switch Blue", price: 27990 }, // R$ 279,90
+      { color: "RGB Switch Red", price: 29990 },
+      { color: "Switch Blue", price: 27990 },
     ],
   },
   {
     name: "Mouse Gamer Logitech G Pro X Superlight",
+    brand: "Logitech", // ✅ MARCA ADICIONADA
     description:
       "Mouse gamer wireless ultraleve com sensor HERO 25K e design profissional para eSports.",
     categoryName: "Periféricos",
     variants: [
-      { color: "Preto 25K DPI", price: 69990 }, // R$ 699,90
-      { color: "Branco Wireless", price: 74990 }, // R$ 749,90
+      { color: "Preto 25K DPI", price: 69990 },
+      { color: "Branco Wireless", price: 74990 },
     ],
   },
   {
     name: "Headset Gamer HyperX Cloud II",
+    brand: "HyperX", // ✅ MARCA ADICIONADA
     description:
       "Headset gamer com som surround 7.1, microfone removível e construção em alumínio.",
     categoryName: "Periféricos",
     variants: [
-      { color: "7.1 Surround", price: 49990 }, // R$ 499,90
-      { color: "Wireless", price: 59990 }, // R$ 599,90
+      { color: "7.1 Surround", price: 49990 },
+      { color: "Wireless", price: 59990 },
     ],
   },
 ];
@@ -402,11 +417,14 @@ async function main() {
         );
       }
 
-      console.log(`📦 Criando produto: ${productData.name}`);
+      console.log(
+        `📦 Criando produto: ${productData.name} [${productData.brand}]`,
+      );
 
       await db.insert(productTable).values({
         id: productId,
         name: productData.name,
+        brand: productData.brand, // ✅ CAMPO BRAND SENDO INSERIDO!
         slug: productSlug,
         description: productData.description,
         categoryId: categoryId,
@@ -446,6 +464,10 @@ async function main() {
         0,
       )} variantes.`,
     );
+
+    // Listar marcas únicas inseridas
+    const uniqueBrands = [...new Set(products.map((p) => p.brand))];
+    console.log(`🏷️ Marcas inseridas: ${uniqueBrands.join(", ")}`);
   } catch (error) {
     console.error("❌ Erro durante o seeding:", error);
     throw error;
