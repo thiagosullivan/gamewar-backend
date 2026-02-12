@@ -385,3 +385,51 @@ export const contactInfoTable = pgTable("contact_info", {
   businessHours: text("business_hours"),
   updatedAt: timestamp("updated_at").defaultNow(),
 });
+
+// CART
+export const cartTable = pgTable("cart", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  userId: text("user_id")
+    .notNull()
+    .references(() => userTable.id, { onDelete: "cascade" }),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at")
+    .defaultNow()
+    .$onUpdate(() => new Date())
+    .notNull(),
+});
+
+export const cartItemTable = pgTable("cart_item", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  cartId: uuid("cart_id")
+    .notNull()
+    .references(() => cartTable.id, { onDelete: "cascade" }),
+  variantId: uuid("variant_id")
+    .notNull()
+    .references(() => productVariantTable.id, { onDelete: "cascade" }),
+  quantity: integer("quantity").notNull().default(1),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at")
+    .defaultNow()
+    .$onUpdate(() => new Date())
+    .notNull(),
+});
+
+export const cartRelations = relations(cartTable, ({ one, many }) => ({
+  user: one(userTable, {
+    fields: [cartTable.userId],
+    references: [userTable.id],
+  }),
+  items: many(cartItemTable),
+}));
+
+export const cartItemRelations = relations(cartItemTable, ({ one }) => ({
+  cart: one(cartTable, {
+    fields: [cartItemTable.cartId],
+    references: [cartTable.id],
+  }),
+  variant: one(productVariantTable, {
+    fields: [cartItemTable.variantId],
+    references: [productVariantTable.id],
+  }),
+}));
