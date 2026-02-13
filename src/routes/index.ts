@@ -22,6 +22,7 @@ import adminVariantsRouter from "./admin/products/variants.js";
 import publicProductsRouter from "./public/products.js";
 import publicCategoriesRouter from "./public/categories.js";
 import cartRouter from "./cart/cart.js";
+import adminOrdersRouter from "./admin/orders/index.js";
 
 const router = express.Router();
 
@@ -49,6 +50,7 @@ router.use("/admin/content/contact", adminContactRouter);
 router.use("/admin/categories", adminCategoriesRouter);
 router.use("/admin/products", adminProductsRouter);
 router.use("/admin/products", adminVariantsRouter);
+router.use("/admin/orders", adminOrdersRouter);
 
 // health route
 router.get("/health", (req, res) => {
