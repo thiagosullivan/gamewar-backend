@@ -10,6 +10,7 @@ import {
   uuid,
 } from "drizzle-orm/pg-core";
 
+// User
 export const userTable = pgTable("user", {
   id: text("id").primaryKey(),
   name: text("name").notNull(),
@@ -86,6 +87,7 @@ export const verification = pgTable(
   (table) => [index("verification_identifier_idx").on(table.identifier)],
 );
 
+// Address
 export const addressTable = pgTable(
   "address",
   {
@@ -153,6 +155,7 @@ export const addressRelations = relations(addressTable, ({ one }) => ({
   }),
 }));
 
+// Category
 export const categoryTable = pgTable("category", {
   id: uuid().primaryKey().defaultRandom(),
   name: text().notNull(),
@@ -166,6 +169,7 @@ export const categoryRelations = relations(categoryTable, (params) => {
   };
 });
 
+// Product
 export const productTable = pgTable("product", {
   id: uuid().primaryKey().defaultRandom(),
   categoryId: uuid("category_id")
@@ -232,6 +236,7 @@ export const paymentMethodEnum = pgEnum("payment_method", [
   "cash",
 ]);
 
+// Orders
 export const orderTable = pgTable(
   "order",
   {
@@ -243,11 +248,11 @@ export const orderTable = pgTable(
       onDelete: "set null",
     }),
 
-    // Informações do pedido
+    // order info
     orderNumber: text("order_number").notNull().unique(),
     status: orderStatusEnum("status").default("pending").notNull(),
 
-    // Informações de pagamento
+    // payment info
     paymentMethod: paymentMethodEnum("payment_method"),
     paymentStatus: text("payment_status", {
       enum: ["pending", "paid", "failed", "refunded"],
@@ -256,18 +261,17 @@ export const orderTable = pgTable(
       .notNull(),
     transactionId: text("transaction_id"),
 
-    // Valores monetários
-    subtotal: integer("subtotal").notNull(), // em centavos
+    // price
+    subtotal: integer("subtotal").notNull(),
     shipping: integer("shipping").default(0).notNull(),
     discount: integer("discount").default(0).notNull(),
-    total: integer("total").notNull(), // em centavos
+    total: integer("total").notNull(),
 
-    // Informações adicionais
     notes: text("notes"),
     trackingCode: text("tracking_code"),
     estimatedDelivery: timestamp("estimated_delivery"),
 
-    // Metadados
+    // metadata
     createdAt: timestamp("created_at").defaultNow().notNull(),
     updatedAt: timestamp("updated_at")
       .defaultNow()
@@ -281,7 +285,7 @@ export const orderTable = pgTable(
   ],
 );
 
-// Tabela de itens do pedido
+// items order
 export const orderItemTable = pgTable(
   "order_item",
   {
@@ -297,18 +301,17 @@ export const orderItemTable = pgTable(
       { onDelete: "set null" },
     ),
 
-    // Informações do produto no momento da compra (snapshot)
+    // snapshot
     productName: text("product_name").notNull(),
     productImage: text("product_image"),
     variantName: text("variant_name"),
     color: text("color"),
 
-    // Quantidade e preço
     quantity: integer("quantity").notNull(),
-    unitPrice: integer("unit_price").notNull(), // em centavos
-    totalPrice: integer("total_price").notNull(), // em centavos
+    unitPrice: integer("unit_price").notNull(),
+    totalPrice: integer("total_price").notNull(),
 
-    // Metadados
+    // Metadada
     createdAt: timestamp("created_at").defaultNow().notNull(),
   },
   (table) => [
@@ -344,6 +347,7 @@ export const orderItemRelations = relations(orderItemTable, ({ one }) => ({
   }),
 }));
 
+// Publics
 export const carouselTable = pgTable("carousel", {
   id: uuid("id").primaryKey().defaultRandom(),
   imageUrl: text("image_url").notNull(),
