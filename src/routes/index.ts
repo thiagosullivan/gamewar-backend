@@ -24,6 +24,7 @@ import publicCategoriesRouter from "./public/categories.js";
 import cartRouter from "./cart/cart.js";
 import adminOrdersRouter from "./admin/orders/index.js";
 import adminDashboardRouter from "./admin/dashboard/index.js";
+import wishlistRouter from "./wishlist/wishlist.js";
 
 const router = express.Router();
 
@@ -42,6 +43,7 @@ router.use("/user", userRouter);
 router.use("/addresses", addressesRouter);
 router.use("/orders", ordersRouter);
 router.use("/cart", cartRouter);
+router.use("/wishlist", wishlistRouter);
 
 // Admin routes
 router.use("/admin/users", adminUsersRouter);
