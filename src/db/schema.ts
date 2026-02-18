@@ -437,3 +437,26 @@ export const cartItemRelations = relations(cartItemTable, ({ one }) => ({
     references: [productVariantTable.id],
   }),
 }));
+
+// WISHLIST
+export const wishlistTable = pgTable("wishlist", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  userId: text("user_id")
+    .notNull()
+    .references(() => userTable.id, { onDelete: "cascade" }),
+  productId: uuid("product_id")
+    .notNull()
+    .references(() => productTable.id, { onDelete: "cascade" }),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+export const wishlistRelations = relations(wishlistTable, ({ one }) => ({
+  user: one(userTable, {
+    fields: [wishlistTable.userId],
+    references: [userTable.id],
+  }),
+  product: one(productTable, {
+    fields: [wishlistTable.productId],
+    references: [productTable.id],
+  }),
+}));
